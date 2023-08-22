@@ -3,6 +3,8 @@ package com.example.demoapi.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demoapi.model.Country;
@@ -34,5 +36,10 @@ public class CountryService {
 	
 	public void delete(Country country) {
 		repo.delete(country);
+	}
+	
+	@Transactional
+	public void deleteByCode(String uuid) {
+		repo.deleteByCode(uuid);
 	}
 }

@@ -73,13 +73,14 @@ public class CountryController {
 		}
 	}
 	
-	
+		
 	/**
-	 * Method that delete a country
+	 * Method that delete a Country by UUID
+	 * @param uuid
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{uuid}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable("id") Long id) {
-		service.delete(id);
+	public void delete(@PathVariable("uuid") String uuid) {
+		service.deleteByCode(uuid);
 	}
 }

@@ -20,7 +20,6 @@ public abstract class BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false, nullable = false)
 	private Long id;
-
 	
 	@Override
 	public int hashCode() {

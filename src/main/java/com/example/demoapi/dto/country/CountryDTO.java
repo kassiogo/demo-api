@@ -11,5 +11,6 @@ public class CountryDTO extends BaseDTO {
 
 	private String name;
 	private String initials;
+	private String code;
 	
 }
