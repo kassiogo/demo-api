@@ -10,7 +10,8 @@ import lombok.EqualsAndHashCode;
 public class CountryDTO extends BaseDTO {
 
 	private String name;
-	private String initials;
+	private String iso3;
+	private String iso2;
 	private String code;
 	
 }

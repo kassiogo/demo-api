@@ -4,9 +4,11 @@ spring:
     password: 
     username: sa
     url: jdbc:h2:mem:devdb
+    initialization-mode: never
   jpa:
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
     database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: false
     

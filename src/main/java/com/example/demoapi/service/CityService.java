@@ -19,6 +19,10 @@ public class CityService {
 		return repo.findAll();
 	}
 	
+	public List<City> findByStateId(Long stateId) {
+    	return repo.findByStateId(stateId);
+    }
+	
 	public City save( City city ) {
 		return repo.save(city);
 	}

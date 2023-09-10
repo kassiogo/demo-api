@@ -10,6 +10,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class StateDTO extends BaseDTO {
     private String name;
-    private String abbreviation;
+    private String stateCode;
     private CountryDTO country;
 }

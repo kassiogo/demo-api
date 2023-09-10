@@ -18,7 +18,10 @@ public class Country extends BaseEntity {
 	private String name;
 	
 	@Column(nullable = false, length = 3)
-	private String initials;
+	private String iso3;
+	
+	@Column(nullable = false, length = 2)
+	private String iso2;
 	
 	private String code;
 	

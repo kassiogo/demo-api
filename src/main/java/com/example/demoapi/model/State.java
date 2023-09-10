@@ -17,8 +17,8 @@ public class State extends BaseEntity {
 	@Column(nullable = false, length = 250)
 	private String name;
 	
-	@Column(nullable = false, length = 3)
-	private String initials;
+	@Column(nullable = false, length = 5)
+	private String stateCode;
 	
 	@ManyToOne
 	@JoinColumn(name = "country_id", nullable = false, foreignKey = @ForeignKey(name = "FK_StateCountry"))

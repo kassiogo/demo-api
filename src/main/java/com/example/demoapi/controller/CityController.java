@@ -40,7 +40,7 @@ public class CityController {
 				.toList();
 		return ResponseEntity.ok(cities);
 	}
-
+	
 
 	/**
 	 * Method that create a new city

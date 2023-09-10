@@ -1,5 +1,7 @@
 package com.example.demoapi.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,10 +20,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demoapi.dto.country.CountryDTO;
+import com.example.demoapi.dto.state.StateDTO;
 import com.example.demoapi.exception.BusinessException;
 import com.example.demoapi.exception.CountryNotFoundException;
 import com.example.demoapi.model.Country;
+import com.example.demoapi.model.State;
 import com.example.demoapi.service.CountryService;
+import com.example.demoapi.service.StateService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -31,6 +39,8 @@ import lombok.AllArgsConstructor;
 public class CountryController {
 
 	private CountryService service;
+	private StateService stateService;
+	
 	private ModelMapper mapper;
 	
 	/**
@@ -45,6 +55,15 @@ public class CountryController {
 		return ResponseEntity.ok( dtos );
 	}
 	
+	
+	@GetMapping("/{id}/states")
+	public ResponseEntity<List<StateDTO>> findStates(@PathVariable("id") Long id ) {
+		List<State> states = stateService.findByCountryId(id);
+		List<StateDTO> dtos = states.stream()
+				.map(item -> mapper.map(item, StateDTO.class))
+				.toList();
+		return ResponseEntity.ok(dtos);
+	}
 	
 	/**
 	 * Method that create a new country
@@ -82,5 +101,47 @@ public class CountryController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("uuid") String uuid) {
 		service.deleteByCode(uuid);
+	}
+	
+	
+	@GetMapping("/local-json")
+	public ResponseEntity<List<CountryDTO>> dataLoad() {
+		TypeReference<List<CountryDTO>> typeReference = new TypeReference<List<CountryDTO>>(){};
+		InputStream inputStream = TypeReference.class.getResourceAsStream("/json/countries.json");
+		
+		try {
+			ObjectMapper objMapper = new ObjectMapper();
+			objMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+			List<CountryDTO> dtos = objMapper.readValue(inputStream,typeReference);
+			return  ResponseEntity.ok(dtos);
+		} catch (IOException e){
+			System.out.println("Unable to save users: " + e.getMessage());
+			return null;
+		}
+	}
+	
+	@PostMapping("/local-json")
+	public ResponseEntity<List<CountryDTO>> saveDataFromJson() {
+		TypeReference<List<CountryDTO>> typeReference = new TypeReference<List<CountryDTO>>(){};
+		InputStream inputStream = TypeReference.class.getResourceAsStream("/json/countries.json");
+		
+		try {
+			ObjectMapper objMapper = new ObjectMapper();
+			objMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+			
+			List<CountryDTO> dtos = objMapper.readValue(inputStream,typeReference);
+			
+			List<Country> countries = dtos.stream()
+					.map(item -> mapper.map(item, Country.class))
+					.toList();
+			dtos = service.save(countries).stream()
+					.map(item -> mapper.map(item, CountryDTO.class))
+					.toList();
+			
+			return  ResponseEntity.ok(dtos);
+		} catch (IOException e){
+			System.out.println("Unable to save users: " + e.getMessage());
+			return null;
+		}
 	}
 }

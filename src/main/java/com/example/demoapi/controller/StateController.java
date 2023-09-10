@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demoapi.dto.city.CityDTO;
 import com.example.demoapi.dto.state.StateDTO;
 import com.example.demoapi.model.State;
+import com.example.demoapi.service.CityService;
 import com.example.demoapi.service.StateService;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +28,8 @@ import lombok.AllArgsConstructor;
 public class StateController {
 
     private StateService service;
+    private CityService cityService;
+    
     private ModelMapper mapper;
 
     
@@ -35,6 +39,15 @@ public class StateController {
                 .map(item -> mapper.map(item, StateDTO.class))
                 .toList();
         return ResponseEntity.ok(states);
+    }
+    
+    
+    @GetMapping("/{id}/cities")
+    public ResponseEntity<List<CityDTO>> findCities( @PathVariable("id") Long id ) {
+        var cities = cityService.findByStateId(id).stream()
+                .map(item -> mapper.map(item, CityDTO.class))
+                .toList();
+        return ResponseEntity.ok(cities);
     }
     
     

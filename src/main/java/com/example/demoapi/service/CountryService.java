@@ -30,6 +30,10 @@ public class CountryService {
 		return repo.save(ent);
 	}
 	
+	public List<Country> save(List<Country> ents) {
+		return repo.saveAll(ents);
+	}
+	
 	public void delete(Long id) {
 		repo.deleteById(id);
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demoapi.model.State;
+import com.example.demoapi.repository.CityRepo;
 import com.example.demoapi.repository.StateRepo;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +19,10 @@ public class StateService {
     public State save(State state) {
         return repository.save(state);
     }
+    
+    public List<State> save(List<State> states) {
+        return repository.saveAll(states);
+    }
 
     public List<State> findAll() {
         return repository.findAll();
@@ -26,5 +31,9 @@ public class StateService {
     public void delete(Long id) {
     	repository.deleteById(id);
     }
+    
+    public List<State> findByCountryId(Long id) {
+		return repository.findByCountryId(id);
+	}
 
 }
