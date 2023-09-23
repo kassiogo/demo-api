@@ -3,6 +3,7 @@ package com.example.demoapi.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -50,7 +51,7 @@ public class CountryController {
 	public ResponseEntity<List<CountryDTO>> findAll() {
 		var dtos = service.findAll().stream()
 				.map(item -> mapper.map(item, CountryDTO.class))
-				.toList();
+				.collect(Collectors.toList());
 		
 		return ResponseEntity.ok( dtos );
 	}
@@ -61,7 +62,7 @@ public class CountryController {
 		List<State> states = stateService.findByCountryId(id);
 		List<StateDTO> dtos = states.stream()
 				.map(item -> mapper.map(item, StateDTO.class))
-				.toList();
+				.collect(Collectors.toList());
 		return ResponseEntity.ok(dtos);
 	}
 	
@@ -133,10 +134,10 @@ public class CountryController {
 			
 			List<Country> countries = dtos.stream()
 					.map(item -> mapper.map(item, Country.class))
-					.toList();
+					.collect(Collectors.toList());
 			dtos = service.save(countries).stream()
 					.map(item -> mapper.map(item, CountryDTO.class))
-					.toList();
+					.collect(Collectors.toList());
 			
 			return  ResponseEntity.ok(dtos);
 		} catch (IOException e){

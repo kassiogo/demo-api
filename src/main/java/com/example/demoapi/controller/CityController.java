@@ -1,6 +1,7 @@
 package com.example.demoapi.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class CityController {
 		var cities = service.findAll()
 				.stream()
 				.map(item -> mapper.map(item, CityPlanDTO.class))
-				.toList();
+				.collect(Collectors.toList());
 		return ResponseEntity.ok(cities);
 	}
 	

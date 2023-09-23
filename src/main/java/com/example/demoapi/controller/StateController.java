@@ -1,6 +1,7 @@
 package com.example.demoapi.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class StateController {
     public ResponseEntity<List<StateDTO>> findAll() {
         var states = service.findAll().stream()
                 .map(item -> mapper.map(item, StateDTO.class))
-                .toList();
+                .collect(Collectors.toList());
         return ResponseEntity.ok(states);
     }
     
@@ -46,7 +47,7 @@ public class StateController {
     public ResponseEntity<List<CityDTO>> findCities( @PathVariable("id") Long id ) {
         var cities = cityService.findByStateId(id).stream()
                 .map(item -> mapper.map(item, CityDTO.class))
-                .toList();
+                .collect(Collectors.toList());
         return ResponseEntity.ok(cities);
     }
     

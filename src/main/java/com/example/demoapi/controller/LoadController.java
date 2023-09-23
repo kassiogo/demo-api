@@ -2,6 +2,7 @@ package com.example.demoapi.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -77,7 +78,7 @@ public class LoadController {
 		
 		List<CountryDTO> dtosSaved = countries.stream()
 			.map(item -> mapper.map(item, CountryDTO.class))
-			.toList();
+				.collect(Collectors.toList());
 		
 		return ResponseEntity.ok(dtosSaved);
 	}
