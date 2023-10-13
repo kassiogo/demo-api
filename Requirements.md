@@ -1,10 +1,10 @@
 # DEMO API#
 
-The **Demo API** bla bla. 
+This Spring Boot project showcases the use of Spring Boot 2.2.2.RELEASE with an H2 database and Spring Data JPA.
 
 ## **User-Interface** ##
 
-It's no front-end at this first moment.
+See the front-end demonstration on https://github.com/kassiogo/demo-frontend.
 
 ## **API** ##
 
