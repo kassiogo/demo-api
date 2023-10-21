@@ -20,11 +20,11 @@ public abstract class BaseEntityAudit extends BaseEntity {
 	private String createdBy;
 	private String updatedBy;
 	
-	@UpdateTimestamp
+	@CreationTimestamp
 	@Column(updatable = false)
 	private LocalDateTime createdAt;
 	
-	@CreationTimestamp
+	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 
 	
